@@ -14,12 +14,16 @@ import Dispersion from "./Dispersion/Dispersion-study";
 import FBOParticles from "./particle/ParticleText";
 import ParticleImage from "./particleOnImage/particleImage";
 // new THREE.Vector3((255, 246, 207))
+import BallTable from "./physicsscene/balltable";
 const Scene = () => {
   return (
-    <Canvas camera={{ position: [0, 0, 5] }} dpr={[1, 2]} gl={{}} flat>
+    <Canvas camera={{ position: [0, 500, 0] }} dpr={[1, 2]} orthographic flat>
       <color attach={"background"} args={["black"]} />
       <ambientLight intensity={1.0} />
-      <Dispersion />
+      <Suspense>
+        <BallTable />
+      </Suspense>
+      {/* <Dispersion /> */}
       <OrbitControls />
       {/* <Grid /> */}
       <Stats />

@@ -111,19 +111,19 @@ const Dispersion = () => {
         color /= float(SAMPLE_LOOP);
         float lighting = specular(uLight,uSpec,uDiff);
         color += lighting;
-        float f = fresnel(eyeVector, normal, uFres);
-        color.rgb += f * vec3(1.0);
+        // float f = fresnel(eyeVector, normal, uFres);
+        // color.rgb += f * vec3(1.0);
         gl_FragColor = vec4(color,1.0);}
       `,
     }),
-    []
+    [height, width]
   );
 
   useFrame((state) => {
     const { gl, scene, camera, pointer, clock } = state;
 
     mesh.current.visible = false;
-  
+
     gl.setRenderTarget(mainRenderTarget);
 
     gl.render(scene, camera);
@@ -132,17 +132,15 @@ const Dispersion = () => {
 
     mesh.current.visible = true;
     gl.setRenderTarget(null);
-    mesh.current.position.x = pointer.x * 2;
-    mesh.current.position.y = pointer.y* 2;
   });
   return (
     <>
-      <mesh ref={background}>
+      {/* <mesh ref={background}>
         <planeGeometry args={[4, 4, 2, 2]} />
         <meshBasicMaterial side={THREE.DoubleSide} map={tex} />
-      </mesh>
-      <mesh ref={mesh} position={[0, 0, 1]} scale={[1, 1, 0.15]}>
-        <icosahedronGeometry args={[1, 20]} />
+      </mesh> */}
+      <mesh ref={mesh}>
+        <icosahedronGeometry args={[100, 20]} />
         <shaderMaterial args={[shaderArgs]} />
       </mesh>
     </>
