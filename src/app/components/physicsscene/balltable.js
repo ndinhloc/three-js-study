@@ -12,7 +12,7 @@ import { Suspense, useRef } from "react";
 import * as THREE from "three";
 import Dispersion from "../Dispersion/Dispersion-study";
 const BallTable = () => {
-  const tex = useTexture("/bg.jpg");
+  const tex = useTexture("/test3.jpg");
   const width = window.innerWidth;
   const height = window.innerHeight;
   const ballRadius = Math.floor(height / 16);
@@ -31,11 +31,11 @@ const BallTable = () => {
         intensity={10}
         color={new THREE.Color("0xffffff")}
       />
-      <mesh position={[0, -200, 0]} rotation={[Math.PI / 2, 0, 0]}>
+      <mesh position={[0, -400, 0]} rotation={[Math.PI / 2, 0, 0]}>
         <planeGeometry args={[width, height]} />
         <meshBasicMaterial side={THREE.DoubleSide} map={tex} />
       </mesh>
-      <Physics debug>
+      <Physics>
         <RigidBody
           colliders={"ball"}
           gravityScale={100}

@@ -17,13 +17,14 @@ import ParticleImage from "./particleOnImage/particleImage";
 import BallTable from "./physicsscene/balltable";
 const Scene = () => {
   return (
-    <Canvas camera={{ position: [0, 500, 0] }} dpr={[1, 2]} orthographic flat>
+    <Canvas camera={{ position: [0, 0, 500] }} dpr={[1, 2]} orthographic flat>
       <color attach={"background"} args={["black"]} />
       <ambientLight intensity={1.0} />
-      <Suspense>
+      {/* <Suspense>
         <BallTable />
-      </Suspense>
-      {/* <Dispersion /> */}
+      </Suspense> */}
+      <Dispersion />
+      <NoiseGradient />
       <OrbitControls />
       {/* <Grid /> */}
       <Stats />

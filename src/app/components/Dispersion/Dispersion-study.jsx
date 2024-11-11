@@ -106,8 +106,10 @@ const Dispersion = () => {
           color.r += texture2D(uTex,uv + refractVecR.xy * (uRefractPow+slide*1.0)*uChromaticAbrr).r;
           color.g += texture2D(uTex,uv + refractVecG.xy * (uRefractPow+slide*2.0)*uChromaticAbrr).g;
           color.b += texture2D(uTex,uv + refractVecB.xy * (uRefractPow+slide*3.0)*uChromaticAbrr).b;
+          
           color = sat(color,uSat);
         }
+          // color = vec3(1.)-color *0.4;
         color /= float(SAMPLE_LOOP);
         float lighting = specular(uLight,uSpec,uDiff);
         color += lighting;
@@ -120,7 +122,7 @@ const Dispersion = () => {
   );
 
   useFrame((state) => {
-    const { gl, scene, camera, pointer, clock } = state;
+    const { gl, scene, camera, pointer, clock, raycaster } = state;
 
     mesh.current.visible = false;
 
@@ -132,15 +134,28 @@ const Dispersion = () => {
 
     mesh.current.visible = true;
     gl.setRenderTarget(null);
+
+    raycaster.setFromCamera(pointer, camera);
+    let pointerWorld = new THREE.Vector3(pointer.x, pointer.y, 0.5);
+    const planeZ = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0); // Normal is along z-axis, d = 0 for z = 0 plane
+    const intersectPoint = new THREE.Vector3();
+
+    // Get the intersection point of the ray with the z = 0 plane
+    raycaster.ray.intersectPlane(planeZ, intersectPoint);
+    pointerWorld.unproject(camera);
+    mesh.current.position.x = intersectPoint.x;
+    mesh.current.position.y = intersectPoint.y;
+    // ref.current.material.uniforms.uTime.value = clock.elapsedTime;
+    return null;
   });
   return (
     <>
-      {/* <mesh ref={background}>
-        <planeGeometry args={[4, 4, 2, 2]} />
+      {/* <mesh ref={background} position={[0, 0, -50]}>
+        <planeGeometry args={[width, height, 2, 2]} />
         <meshBasicMaterial side={THREE.DoubleSide} map={tex} />
       </mesh> */}
-      <mesh ref={mesh}>
-        <icosahedronGeometry args={[100, 20]} />
+      <mesh ref={mesh} scale={[1, 1, 0.25]} position={[0, 0, 200]}>
+        <icosahedronGeometry args={[200, 20]} />
         <shaderMaterial args={[shaderArgs]} />
       </mesh>
     </>
