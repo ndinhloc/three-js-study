@@ -8,9 +8,8 @@ import { Grid, OrbitControls, Stats, useTexture } from "@react-three/drei";
 
 import LensScene from "./LensScene";
 const Scene = ({ imgList, ...props }) => {
-  
   return (
-    <Canvas camera={{ position: [0, 0, 200] }} dpr={[1, 1]} orthographic flat>
+    <Canvas camera={{ position: [0, 0, 200] }} dpr={[1, 2]} orthographic flat>
       <color attach={"background"} args={["black"]} />
       <ambientLight intensity={1.0} />
       <Suspense fallback={null}>

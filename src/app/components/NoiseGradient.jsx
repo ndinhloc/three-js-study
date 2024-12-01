@@ -7,9 +7,7 @@ import * as THREE from "three";
 
 const NoiseGradient = () => {
   const { gl } = useThree();
-  useLayoutEffect(() => {
-    gl.setPixelRatio(1);
-  }, []);
+
   const width = window.innerWidth;
   const height = window.innerHeight;
   const mouseX = useRef(0);
@@ -20,7 +18,7 @@ const NoiseGradient = () => {
   };
   useEffect(() => {
     document.body.addEventListener("mousemove", onMouseMove);
-  }, []);
+  });
   const $mesh = useRef();
   const mainRef = useRef(document.querySelector("main"));
   const { scrollYProgress } = useScroll({ container: mainRef });

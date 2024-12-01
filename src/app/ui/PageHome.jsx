@@ -8,7 +8,7 @@ import * as THREE from "three";
 import { useScroll } from "framer-motion";
 const SceneNoSSR = dynamic(() => import("../components/Scene"));
 
-const imgList = ["/test.jpg", "/test2.jpg", "/test3.jpg", "/bg.jpg"];
+const imgList = ["/test.jpg", "/test2.jpg", "/test3.jpg"];
 function PageHome() {
   return (
     <>
